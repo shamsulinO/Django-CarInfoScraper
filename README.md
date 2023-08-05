@@ -11,8 +11,8 @@ Russian Version
 2) В файле aparser/apaser/aparser/settings.py добавить почту отправителя и его пароль.
 
 Запуск:
-Сайт - Из папки aparser/aparser выполняем команду в терминале: python manage.py runserver
-Парсер - Из папки aparser/aparser/acars/utils/acars выполняем команду в терминале: python parser.py
+1) Сайт - Из папки aparser/aparser выполняем команду в терминале: python manage.py runserver
+2) Парсер - Из папки aparser/aparser/acars/utils/acars выполняем команду в терминале: python parser.py
 
 _________________________________________________________________________________
 
