@@ -7,12 +7,12 @@ Russian Version
 (можно выключить в настройках)
 
 Подготовка:
-1) В файле aparser/acars/utils/acars/parser.py добавить почту отправителя и его пароль.
-2) В файле apaser/aparser/settings.py добавить почту отправителя и его пароль.
+1) В файле aparser/aparser/acars/utils/acars/parser.py добавить почту отправителя и его пароль.
+2) В файле aparser/apaser/aparser/settings.py добавить почту отправителя и его пароль.
 
 Запуск:
-Сайт - Из папки aparser выполняем команду в терминале: python manage.py runserver
-Парсер - Из папки aparser/acars/utils/acars выполняем команду в терминале: python parser.py
+Сайт - Из папки aparser/aparser выполняем команду в терминале: python manage.py runserver
+Парсер - Из папки aparser/aparser/acars/utils/acars выполняем команду в терминале: python parser.py
 
 _________________________________________________________________________________
 
@@ -25,9 +25,9 @@ on the website. By clicking on an advertisement, you can get more detailed infor
 on the website, you will receive an email notification (which can be disabled in the settings).
 
 Preparation:
-In the file aparser/acars/utils/acars/parser.py, add the sender's email address and its password.
-In the file apaser/aparser/settings.py, add the sender's email address and its password.
+1) In the file aparser/aparser/acars/utils/acars/parser.py, add the sender's email address and its password.
+2) In the file aparser/apaser/aparser/settings.py, add the sender's email address and its password.
 
 Execution:
-Website - From the aparser folder, execute the command in the terminal: python manage.py runserver
-Parser - From the aparser/acars/utils/acars folder, execute the command in the terminal: python parser.py
+1) Website - From the aparser/aparser folder, execute the command in the terminal: python manage.py runserver
+2) Parser - From the aparser/aparser/acars/utils/acars folder, execute the command in the terminal: python parser.py
