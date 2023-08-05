@@ -1,0 +1,14 @@
+{% extends 'acars/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="display: grid;" class='content'>
+  <div style="text-align: center;">
+    <h2 style="color: #4827EC;">Данные Автомобиля</h2>
+    <a style='color: #73757D;' target="_blank" href="https://www.avito.ru/{{car_id}}">Ссылка на авто</a>
+    <div style="display: grid; margin: 40px 0 0 0;"><h3 style="color: #4827EC;">VIN: </h3><h3> {{car_info.0}}</h3></div>
+    <div style="display: grid; margin: 20px 0 40px 0;"><h3 style="color: #4827EC;">Номер: </h3><h3> {{car_info.1}}</h3></div>
+    <a style='text-decoration: inherit; padding: 5px; margin: 0 0 50px 0;' class="check-car" href="http://127.0.0.1:8000/vin/{{car_info.0}}/">Проверить по VIN</a>
+  </div>
+</div>
+{% endblock %}

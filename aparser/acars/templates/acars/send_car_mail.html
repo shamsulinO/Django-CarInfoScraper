@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+    <style>
+    .header{
+        background-color: #f0efef;
+        color: 	#4827EC;
+        font-family: system-ui, sans-serif;
+        font-size: 25px;
+        text-align: center;
+        border-radius: 10px;
+        padding: 5px 0px 0px 0px;
+    }
+
+    .item{
+        background-color: #d8d8d8;
+        border-radius: 5px;
+        color: 	#353238;
+        font-family: system-ui, sans-serif;
+        margin: 10px 0 10px 0;
+    }
+
+    a{
+        color: #e4e4e4;
+        text-decoration: inherit;
+    }
+
+    .butt{
+        font-family: system-ui, sans-serif;
+        border-radius: 10px;
+        margin: 4px;
+        text-align: center;
+		padding: 25px;
+    }
+    </style>
+
+</head>
+<body>
+<div style="background-color: #fff; width: 100%; height: 100%; border-radius: 10px;">
+    <div class="header">Новых автомобилей: {{ count }}</div>
+    <hr>
+
+    {% for item in data %}
+    <div class="item">
+        <div style="display: flex;">
+            <img style="max-width:100%; border-radius: 5px; margin: 5px;" src="{{ item.3 }}" alt="car_photo">
+            <div style="width: 100%; display: grid;">
+                <a class="butt" href="{{ item.0 }}" style="background: #4827EC; color: #fff;">Смотреть на Авито</a>
+                <a class="butt" href="#" style="background: #E2E0E0; color: #4827EC; border: 1px solid #4827EC;">Смотреть на Сайте</a>
+            </div>
+        </div>
+        <div>
+            <div class="name" style="font-size: 25px; margin: 0px 5px; color: #4827EC;">{{ item.1 }}</div>
+            <div class="price" style="font-size: 20px; margin: 0px 5px;">{{ item.2 }}</div>
+            <div class="date" style="font-size: 17px; margin: 0px 5px;">{{ item.4 }}</div>
+        </div>
+    </div>
+    {% endfor %}
+    {% if count > 5 %}
+    <hr>
+    <div style="display: grid; color: #4827EC; text-align: center; font-family: 'Arial';">
+        <div style="margin: 5px;"><a href="#" style="background: #4827EC; padding: 5px; color: #fff; border-radius: 4px;">Смотреть больше</a></div>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>

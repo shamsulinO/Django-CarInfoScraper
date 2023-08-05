@@ -1,0 +1,95 @@
+{% extends 'acars/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if cars.0.3 == '0' %}
+<div style="display: grid; text-align: center;" class='content'>
+    <h2 style="color: #4827EC;">Данных пока нет :(</h2>
+    <h5 style="background-color: rgb(255, 74, 74); color: #fff; padding: 5px; border-radius: 10px; margin: 10px;">Нужно указать ссылку на поиск в настройках, после этого нужно немного подождать и повторить попытку.</h5>
+    <h5 style="background-color: rgb(255, 74, 74); color: #fff; padding: 5px; border-radius: 10px; margin: 10px;">
+        Еще вам было отправлено пробное письмо на почту, если его нет то проверьте папку спам.
+        Если сообщение не в папке спам, то в первое время нужно будет проследить чтобы оно туда не попало. А если оно там окажется то действовать по инструкции из пробного письма.
+    </h5>
+</div>
+{% else %}
+<div class='content'>
+<section class="articles-v3">
+    <div class="cd-container cd-max-width-adaptive-lg">
+      <ul class="articles-v3__list-grid">
+
+       {% for car in cars %}
+       <li class="articles-v3__item-grid">
+          <a aria-controls="modal-name-{{car.0}}" class="articles-v3__img-wrapper">
+            {% if car.1 == 'none' %}
+              <img src="{% static 'acars/images/none_car.jpg' %}" alt="Image description">
+              {% else %}
+              <img src="{{ car.1 }}" alt="Image description">
+              {% endif %}
+          </a>
+
+          <div>
+            <h2 class="articles-v3__headline"><a aria-controls="modal-name-{{car.0}}">{{ car.3 }}</a></h2>
+            <h2 class="articles-v3__price">{{ car.4 }}</h2>
+            <p class="articles-v3__description">{{ car.5 }}</p>
+            <div style="display: flex;"><p class="articles-v3__date">{{ car.9 }}</p>
+                {% if car.7 == '1' %}
+                <img style="margin: 0 0 0 5px;" src="{% static 'acars/images/up.svg' %}" alt="UP" width="15px" title="Продвинуто">
+                {% endif %}
+            </div>
+          </div>
+        </li>
+       {% endfor %}
+       </ul>
+    </div>
+</section>
+</div>
+
+{% for car in cars %}
+    <div id="modal-name-{{car.0}}" class="modal modal--animate-translate-up mc4-flex mc4-flex-center mc4-bg-black mc4-bg-opacity-90% mc4-padding-md js-modal">
+      <div class="modal__content mc4-width-100% mc4-max-width-xs mc4-max-height-100% mc4-overflow-auto mc4-bg mc4-radius-md mc4-inner-glow mc4-shadow-md" role="alertdialog" aria-labelledby="modal-title-{{car.0}}" aria-describedby="modal-description-{{car.0}}">
+        <header class="mc4-bg-contrast-lower mc4-bg-opacity-50% mc4-padding-y-sm mc4-padding-x-md mc4-flex mc4-items-center mc4-justify-between">
+          <h1 id="modal-title-{{car.0}}" class="mc4-text-truncate mc4-text-md">Автомобиль</h1>
+
+          <button class="modal__close-btn modal__close-btn--inner js-modal__close js-tab-focus">
+            <svg class="mc4-icon mc4-icon--xs" viewBox="0 0 16 16">
+              <title>Close</title>
+              <g stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+                <line x1="13.5" y1="2.5" x2="2.5" y2="13.5"></line>
+                <line x1="2.5" y1="2.5" x2="13.5" y2="13.5"></line>
+              </g>
+            </svg>
+          </button>
+        </header>
+
+        <div class="mc4-padding-y-sm mc4-padding-x-md">
+          <div class="mc4-text-component">
+
+
+            <a href="{{ car.2 }}" target="_blank" class="articles-v3__img-wrapper">
+              {% if car.1 == 'none' %}
+              <img style="width: 60%" src="{% static 'acars/images/none_car.jpg' %}" alt="Image description">
+              {% else %}
+              <img style="width: 60%" src="{{ car.1 }}" alt="Image description">
+              {% endif %}
+            </a>
+
+            <h2 class="articles-v3__headline"><a href="{{ car.2 }}" target="_blank">{{ car.3 }}</a></h2>
+            <h2 class="articles-v3__price">{{ car.4 }}</h2>
+            <p class="articles-v3__description">{{ car.5 }}</p>
+            <p class="articles-v3__description">{{ car.6|truncatewords:50 }}</p>
+            <div style="display: flex;"><p class="articles-v3__date">{{ car.8 }}, {{ car.9 }}</p>
+                {% if car.7 == '1' %}
+                    <img style="margin: 0 0 0 5px;" src="{% static 'acars/images/up.svg' %}" alt="UP" width="15px" height="22.5px" title="Продвинуто">
+                {% endif %}
+            </div>
+            <div style="display: flex;"><a style='text-decoration: inherit;' href='/avitocar/{{car.0}}' class="check-car">Проверить</a><a style='text-decoration: inherit;' href="{{ car.2 }}" target="_blank" class="look-avito">На Авито</a></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+{% endif %}
+
+
+{% endblock %}

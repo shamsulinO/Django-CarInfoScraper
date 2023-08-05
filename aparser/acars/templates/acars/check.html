@@ -1,0 +1,33 @@
+{% extends 'acars/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="display: grid; text-align: center;" class='content'>
+  <h2 style="color: #4827EC;">Узнать информацию по автомобилю</h2>
+  <p>Введите в поле ниже vin или ссылку на авто с авито</p>
+  <div>
+    <input id="check-input" type="text" style="width: 80%; background-color: #fff; border-radius: 5px; border: 2px solid #4827EC; margin: 20px 10px 10px 10px;">
+    <button id="check-submit" type="submit" style="width: 20%; background-color: #4827EC; color:#fff; border-radius: 5px; margin: 0 10px 10px 10px;">Найти</button>
+  </div>
+</div>
+
+<script>
+  document.querySelector('#check-input').focus();
+  document.querySelector('#check-input').onkeyup = function(e) {
+      if (e.keyCode === 13) {  // enter, return
+          document.querySelector('#check-submit').click();
+      }
+  };
+
+  document.querySelector('#check-submit').onclick = function(e) {
+      var check = document.querySelector('#check-input').value;
+      if (check.toLowerCase().includes('avito')) {
+          var checkParts = check.split('_');
+          var lastPart = checkParts[checkParts.length - 1];
+          window.location.href = decodeURIComponent('/avitocar/' + lastPart);
+      } else {
+        window.location.href = decodeURIComponent('/vin/' + check);
+      }
+  };
+</script>
+{% endblock %}

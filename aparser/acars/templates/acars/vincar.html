@@ -1,0 +1,227 @@
+{% extends 'acars/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if captcha == none %}
+<div style="display: grid; text-align: center;" class='content'>
+  <h2 style="color: #4827EC;">Введите капчу</h2>
+  <h5 style="color: #727272">{{vin_num}}</h5>
+  <div>
+  <p style="text-align: center; display: inline-block;"><img src="{{vin_info.0}}" style="border-radius: 5px; border: 1px solid #4827EC; margin: 10px;"></p></div>
+  <div><p style="text-align: center; display: inline-block;">
+    <input id="captcha-input" type="text" style="width: 110px; background-color: #fff; border-radius: 5px; border: 2px solid #4827EC; margin-bottom: 10px;">
+  </p></div>
+  <div><p style="text-align: center; display: inline-block;">
+    <input id="captcha-submit" type="button" value="Enter" style="background-color: #4827EC; width: 90px; color: #fff; border-radius: 5px; margin-bottom: 10px;"></p></div>
+</div>
+{% else %}
+{% if 'CAPTCHA' in vin_info%}
+<div style="display: grid; text-align: center;" class='content'>
+  <h2 style="color: #4827EC;">{{vin_info}}</h2>
+  <div style="margin: 10px;"><a href="http://127.0.0.1:8000/vin/{{vin_num}}/" style="text-decoration: inherit; background-color: #fff; width: 90px; color: #4827EC; border-radius: 5px; text-align: center; border: 1px solid #4827EC;">Ввести заново</a></div>
+{% else %}
+{% if vin_info == 'Ошибка'%}
+<div style="display: grid; text-align: center;" class='content'>
+  <div>
+    <h2 style="color: #4827EC;">Информация не найдена :(</h2>
+    <p style="text-align: center; display: inline-block;"><img src="{% static 'acars/images/mem2.jpg' %}" style="width: 100%; border-radius: 10px;"></p>
+  </div>
+</div>
+{% else %}
+<div style="display: grid; text-align: center;" class='content'>
+  <h2 style="color: #4827EC;">Информация по VIN</h2>
+  <h5 style="color: #727272">{{vin_num}}</h5>
+  <div style="margin: 20px 0 0 0;">
+    {% if 'Зафиксированных ДТП:' in vin_info.1.dtp %}
+        <div class="gibdd-report-red"><h4 style="color: #4827EC;">ДТП</h4><h5>{{vin_info.1.dtp}}</h5></div>
+    {% else %}
+        <div class="gibdd-report-white"><h4 style="color: #4827EC;">ДТП</h4><h5>{{vin_info.1.dtp}}</h5></div>
+    {% endif %}
+    {% if 'На авто не накладывались ограничения' in vin_info.1.restrict %}
+      <div class="gibdd-report-white"><h4 style="color: #4827EC;">Ограничения</h4><h5>{{vin_info.1.restrict}}</h5></div>
+    {% else %}
+      <div class="gibdd-report-red"><h4 style="color: #4827EC;">Ограничения</h4><h5>{{vin_info.1.restrict}}</h5></div>
+    {% endif %}
+    {% if 'Скручивали пробег на авто!' in vin_info.1.mileage %}
+        <div class="gibdd-report-red"><h4 style="color: #4827EC;">Пробег</h4><h5>{{vin_info.1.mileage}}</h5></div>
+    {% else %}
+        <div class="gibdd-report-white"><h4 style="color: #4827EC;">Пробег</h4><h5>{{vin_info.1.mileage}}</h5></div>
+    {% endif %}
+    {% if 'Авто не числилось в розыске' in vin_info.1.wanted %}
+    <div class="gibdd-report-white"><h4 style="color: #4827EC;">Розыск</h4><h5>{{vin_info.1.wanted}}</h5></div>
+    {% else %}
+    <div class="gibdd-report-red"><h4 style="color: #4827EC;">Розыск</h4><h5>{{vin_info.1.wanted}}</h5></div>
+    {% endif %}
+  </div>
+</div>
+
+<div style="display: grid; text-align: center; margin-top: 15px;" class='content'>
+  <h2 style="color: #4827EC;">Информация об авто</h2>
+  <div style="margin: 10px;">
+    {% for key, value in vin_info.0.0.items %}
+        <div style="display: flex; margin-top: 5px;"><h5 style="color: #4827EC; font-weight: 700;">{{key}}:</h5><h5 style="margin-left: 5px; font-weight: 500;">{{value}}</h5></div>
+    {% endfor %}
+  </div>
+</div>
+
+{% if vin_info.0.1|length != 0 %}
+<div style="display: grid; text-align: center; margin-top: 15px;" class='content'>
+  <h2 style="color: #4827EC;">История регистраций</h2>
+  <h5 style="margin-left: 5px; font-weight: 500;">Всего регистраций: {{vin_info.0.1|length}}</h5>
+  <div style="margin-top: 15px;">
+      {% for key, value in vin_info.0.1.items %}
+        <h4 style="margin-top: 20px;">{{key}}</h4>
+        <h5 style="color:#727272">{{value}}</h5>
+      {% endfor %}
+</div>
+</div>
+{% endif %}
+
+{% if not 'не найден среди отзывных кампаний' in vin_info.0.2.0 %}
+<div style="display: grid; text-align: center; margin-top: 15px;" class='content'>
+  <h2 style="color: #4827EC;">Отзывные компании</h2>
+  <div style="margin: 15px;">
+    Найдены данные об отзывных кампаний, подробнее можете узнать нажав на кнопку.
+    <div>
+      <p style="text-align: center; display: inline-block;"><a href="https://easy.gost.ru/" target="_blank" style="background-color: #4827EC; width: 90px; color: #fff; border-radius: 5px; margin-bottom: 10px;">Отзывная кампания</a></p></div>
+  </div>
+</div>
+{% endif %}
+
+{% if vin_info.2|length != 0 %}
+<div style="display: grid; text-align: center; margin-top: 15px;" class='content'>
+  <h2 style="color: #4827EC;">График пробега</h2>
+  <div style="text-align: center; margin-top: 15px; margin-bottom: 10px;">
+  <div id="chartContainer" style="height: 300px; width: 95%; display: inline-block;"></div></div>
+</div>
+{% endif %}
+
+{% if vin_info.0.3|length != 0 %}
+<div style="display: grid; text-align: center; margin-top: 15px;" class='content'>
+  <h2 style="color: #4827EC;">Диагностичекая карта</h2>
+  <div style="margin: 15px;">
+    {% for key, value in vin_info.0.3.items %}
+    <div style="display: flex; margin-top: 5px;"><h5 style="color: #4827EC; font-weight: 700;">{{key}}:</h5><h5 style="margin-left: 5px; font-weight: 500;">{{value}}</h5></div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if vin_info.0.4|length != 0 %}
+<div style="display: grid; text-align: center; margin-top: 15px;" class='content'>
+  <h2 style="color: #4827EC;">Истекшие ДК</h2>
+  {% for item in vin_info.0.4 %}
+    <div style="margin: 10px; background-color: #fff; padding: 5px; border-radius: 5px;">
+      {% for key, value in item.items %}
+        <div style="display: flex; margin-top: 5px;"><h5 style="color: #4827EC; font-weight: 700;">{{key}}:</h5><h5 style="margin-left: 5px; font-weight: 500;">{{value}}</h5></div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if vin_info.0.5|length != 0 %}
+<div style="display: grid; text-align: center; margin-top: 15px;" class='content'>
+  <h2 style="color: #4827EC;">ДТП</h2>
+
+  <div class="slideshow js-slideshow " data-swipe="on" style="margin: 10px; border-radius: 5px;">
+    <p class="sq7-sr-only">Slideshow Items</p>
+    <ul class="slideshow__content">
+      {% for item in vin_info.0.5 %}
+      <li class="slideshow__item sq7-bg-light js-slideshow__item">
+        <div style="margin-bottom: 30px; padding: 35px;">
+          <p>{{item.id}} из {{vin_info.0.5|length}}</p>
+          <img src="{{item.image}}">
+          {% for key, value in item.items %}
+          {% if key != 'id' and key != 'image' %}
+          <div style="display: flex; margin-top: 5px;"><h5 style="color: #4827EC; font-weight: 700;">{{key}}:</h5><h5 style="margin-left: 5px; font-weight: 500;">{{value}}</h5></div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <ul>
+      <li class="slideshow__control js-slideshow__control">
+        <button class="slideshow__btn js-tab-focus">
+          <svg class="sq7-icon" viewBox="0 0 32 32"><title>Show previous slide</title><path d="M20.768,31.395L10.186,16.581c-0.248-0.348-0.248-0.814,0-1.162L20.768,0.605l1.627,1.162L12.229,16 l10.166,14.232L20.768,31.395z"></path></svg>
+        </button>
+      </li>
+
+      <li class="slideshow__control js-slideshow__control">
+        <button class="slideshow__btn js-tab-focus">
+          <svg class="sq7-icon" viewBox="0 0 32 32"><title>Show next slide</title><path d="M11.232,31.395l-1.627-1.162L19.771,16L9.605,1.768l1.627-1.162l10.582,14.813 c0.248,0.348,0.248,0.814,0,1.162L11.232,31.395z"></path></svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endif %}
+  <div style="margin: 25px;"></div>
+{% endif %}
+{% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  window.onload = function () {
+
+  var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    title:{
+      text: ""
+    },
+    axisY: {
+      title: "",
+      valueFormatString: "#0,,.",
+      suffix: "km",
+      prefix: ""
+    },
+    data: [{
+      type: "splineArea",
+      color: "#4827EC",
+      markerSize: 5,
+      xValueFormatString: "DD/MM/YYYY",
+      yValueFormatString: "#,##0.##km",
+      dataPoints: [
+      {% for key, value in vin_info.2.items %}
+        { x: new Date({{key.0}}, {{key.1|add:"-1"}}, {{key.2}}), y: {{value}} },
+      {% endfor %}
+      ]
+    }]
+    });
+  chart.render();
+
+  }
+  </script>
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
+<script>
+       document.querySelector('#captcha-input').focus();
+       document.querySelector('#captcha-input').onkeyup = function(e) {
+           if (e.keyCode === 13) {  // enter, return
+               document.querySelector('#captcha-submit').click();
+           }
+       };
+
+       document.querySelector('#captcha-submit').onclick = function(e) {
+           var captcha = document.querySelector('#captcha-input').value;
+           window.location.href = decodeURIComponent('/vin/{{vin_num}}/?captcha=' + captcha + '&token={{vin_info.1}}');
+       };
+</script>
+{% endblock %}

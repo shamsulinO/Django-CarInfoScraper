@@ -1,0 +1,29 @@
+{% extends 'acars/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="display: grid; text-align: center;" class='content'>
+  <h2 style="color: #4827EC;">Настройки</h2>
+  <p style="color: #696969; margin-bottom: 20px;">{{user.email}}</p>
+    <form method="post" action="" style="width: 100%;">
+        {% csrf_token %}
+        <div style="color: #A52A2A;"><h2>{{ form.non_field_errors }}</h2></div>
+        <div style="margin: 10px; background-color: #fff; border-radius: 10px;">
+            <h3 style="text-align: left; margin-bottom: 10px; color: #4827EC; text-align: center;">Параметры</h3>
+            <div style="display: flex; text-align: center; display: inline-flex;">
+                <h5>Уведомления о новых авто: </h5>
+                <h5 style="margin: 3px; margin-left: 7px;">{{form.status}}</h5>
+            </div>
+            <h3>{{ form.status.errors }}</h3>
+        </div>
+
+        <div style="margin: 10px; background-color: #fff; border-radius: 10px;">
+            <h4 style="text-align: left; margin-bottom: 10px; color: #4827EC; text-align: center;">Ссылка по которой производиться поиск</h4>
+            <h4 style="margin: 10px;">{{form.search_link}}</h4>
+            <h3>{{ form.search_link.errors }}</h3>
+        </div>
+        <div style="margin: 10px; margin-top: 40px"><button type="submit" style="width: 100%; background-color: #4827EC; color:#fff; border-radius: 5px;">Сохранить всё</button></div>
+    </form>
+  <a href="{% url 'logout'%}" style="background-color: #e93b3b; color: #fff; margin: 0 10px 10px 10px; padding: 3px; border-radius: 5px; text-decoration: inherit;">Выйти из аккаунта</a>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'acars/css/styles.css' %}" type="text/css">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="{% static 'acars/images/logo.ico' %}" type="image/x-icon"/>
+</head>
+<body>
+    <header class="header mf1-position-relative js-header ">
+        <div class="header__container mf1-container mf1-max-width-lg">
+          <div class="header__logo">
+            <a href="{% url 'home' %}">
+              <img src="{% static 'acars/images/logo.svg' %}" height="40px">
+            </a>
+          </div>
+
+          <button class="mf1-btn mf1-btn--subtle header__trigger js-header__trigger" aria-label="Toggle menu" aria-expanded="false" aria-controls="header-nav">
+            <i class="header__trigger-icon" aria-hidden="true"></i>
+            <span>Menu</span>
+          </button>
+
+          <nav class="header__nav js-header__nav" id="header-nav" role="navigation" aria-label="Main">
+            <div class="header__nav-inner">
+              <div class="header__label">Menu</div>
+              <ul class="header__list">
+                {% for item in header_menu %}
+                  {% if item.id == header_select %}
+                    <li class="header__item"><a href="{% url item.url %}" class="header__link" aria-current="page">{{item.title}}</a></li>
+                  {% else %}
+                    <li class="header__item"><a href="{% url item.url %}" class="header__link">{{item.title}}</a></li>
+                  {% endif %}
+                {% endfor %}
+                <li class="header__item header__item--divider" aria-hidden="true"></li>
+                <li class="header__item"><h4 style="color: #4827EC;">{{user.username}}</h4></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+
+{% block content %}
+{% endblock %}
+
+
+</body>
+<script src="{% static 'acars/JS/script.js' %}"></script>
+</html>

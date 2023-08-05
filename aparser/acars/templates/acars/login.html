@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'acars/css/auth.css' %}" type="text/css">
+    <title>{{ title }}</title>
+    <link rel="shortcut icon" href="{% static 'acars/images/logo.ico' %}" type="image/x-icon"/>
+</head>
+<body>
+
+
+<section class="cd-position-relative cd-z-index-1">
+  <div class="cd-position-relative cd-z-index-2">
+      <div class="cd-container cd-max-width-sm" style="padding-top: 10%;">
+        <h1 class="cd-margin-bottom-sm" style="color: #4827EC">Вход</h1>
+        <form method="post" action="" style="width: 100%; text-align: center; margin-top: 10px;">
+            {% csrf_token %}
+          <div style="color: #A52A2A;"><h2>{{ form.non_field_errors }}</h2></div>
+
+          {% for f in form %}
+            <h5>{{f}}</h5>
+            <h3>{{ f.errors }}</h3>
+          {% endfor %}
+
+          <div style="margin: 10px;"><button type="submit" style="padding: 5px 20px 5px 20px; background-color: #4827EC; color:#fff; border-radius: 5px; font-size: 25px;">Войти</button></div>
+          <div style="display: inline-flex; text-align: center;"><p style="color: #909090;">Нет аккаунта? </p><a href="{% url 'register' %}" style="color: #4827EC; margin-left: 2px; text-decoration: inherit;">Регистрация</a></div>
+        </form>
+      </div>
+
+
+  </div>
+
+  <figure class="bg-decoration cd-z-index-1" aria-hidden="true">
+    <svg class="bg-decoration__svg" viewBox="0 0 1920 450" fill="none">
+      <rect opacity="0.5" x="610.131" y="-440" width="128" height="836.003" transform="rotate(46.8712 610.131 -440)"
+        fill="url(#bg-decoration-v1-fx-5-linear-1)" />
+      <rect opacity="0.5" x="1899.13" y="-262" width="128" height="836.003" transform="rotate(46.8712 1899.13 -262)"
+        fill="url(#bg-decoration-v1-fx-5-linear-2)" />
+      <rect opacity="0.5" x="2076.13" y="-321" width="128" height="836.003" transform="rotate(46.8712 2076.13 -321)"
+        fill="url(#bg-decoration-v1-fx-5-linear-3)" />
+      <rect opacity="0.5" x="1294.5" y="40.3308" width="128" height="836.003"
+        transform="rotate(-132.518 1294.5 40.3308)" fill="url(#bg-decoration-v1-fx-5-linear-4)" />
+      <rect opacity="0.5" x="1866.13" y="-453" width="128" height="836.003" transform="rotate(46.8712 1866.13 -453)"
+        fill="url(#bg-decoration-v1-fx-5-linear-5)" />
+      <rect opacity="0.5" x="800.131" y="-418" width="128" height="836.003" transform="rotate(46.8712 800.131 -418)"
+        fill="url(#bg-decoration-v1-fx-5-linear-5)" />
+      <rect opacity="0.5" x="436.448" y="-251" width="76.1734" height="340.424" transform="rotate(46.8712 436.448 -251)"
+        fill="url(#bg-decoration-v1-fx-5-linear-7)" />
+      <defs>
+        <linearGradient id="bg-decoration-v1-fx-5-linear-1" x1="674.131" y1="-440" x2="674.131" y2="396.003"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--bg-decoration-color-2)" />
+          <stop offset="1" stop-color="var(--bg-decoration-color-2)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="bg-decoration-v1-fx-5-linear-2" x1="1963.13" y1="-262" x2="1963.13" y2="574.003"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--bg-decoration-color-2)" />
+          <stop offset="1" stop-color="var(--bg-decoration-color-2)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="bg-decoration-v1-fx-5-linear-3" x1="2140.13" y1="-321" x2="2140.13" y2="515.003"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--bg-decoration-color-2)" />
+          <stop offset="1" stop-color="var(--bg-decoration-color-2)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="bg-decoration-v1-fx-5-linear-4" x1="1358.5" y1="40.3308" x2="1358.5" y2="876.334"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--bg-decoration-color-2)" />
+          <stop offset="1" stop-color="var(--bg-decoration-color-2)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="bg-decoration-v1-fx-5-linear-5" x1="1930.13" y1="-453" x2="1930.13" y2="383.003"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--bg-decoration-color-2)" />
+          <stop offset="1" stop-color="var(--bg-decoration-color-2)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="bg-decoration-v1-fx-5-linear-5" x1="864.131" y1="-418" x2="864.131" y2="418.003"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--bg-decoration-color-2)" />
+          <stop offset="1" stop-color="var(--bg-decoration-color-2)" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="bg-decoration-v1-fx-5-linear-7" x1="474.534" y1="-251" x2="474.534" y2="89.4236"
+          gradientUnits="userSpaceOnUse">
+          <stop stop-color="var(--bg-decoration-color-2)" stop-opacity="0" />
+          <stop offset="1" stop-color="var(--bg-decoration-color-2)" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </figure>
+</section>
+
+
+
+</body>
+</html>
